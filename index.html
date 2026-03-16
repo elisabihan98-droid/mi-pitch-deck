@@ -3,316 +3,556 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pitch Deck Platform</title>
-  <meta name="description" content="Plataforma de presentaciones estratégicas." />
+  <title>EASY Flagship — Nueva Propuesta de Layout | Cencosud</title>
+  <meta name="description" content="Propuesta de arquitectura de retail para las tiendas flagship de EASY, Cencosud." />
 
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="shared/css/base.css" />
+  <!-- Styles -->
+  <link rel="stylesheet" href="../../shared/css/base.css" />
+  <link rel="stylesheet" href="css/theme.css" />
 
-  <style>
-    body {
-      background: #080A0E;
-      color: #F0EDE8;
-      font-family: 'DM Sans', sans-serif;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* Grid background */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(232,160,32,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(232,160,32,0.03) 1px, transparent 1px);
-      background-size: 60px 60px;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .landing-nav {
-      position: relative;
-      z-index: 10;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1.5rem 3rem;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .landing-nav__logo {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.75rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: rgba(240,237,232,0.35);
-    }
-
-    .landing-nav__status {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-family: 'DM Mono', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: rgba(232,160,32,0.6);
-    }
-    .landing-nav__status::before {
-      content: '';
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: #3A7D44;
-      box-shadow: 0 0 8px rgba(58,125,68,0.8);
-    }
-
-    .landing-hero {
-      position: relative;
-      z-index: 1;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 4rem 2rem;
-    }
-
-    .landing-hero__eyebrow {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: rgba(232,160,32,0.6);
-      margin-bottom: 1.5rem;
-    }
-
-    .landing-hero__title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(3.5rem, 8vw, 7rem);
-      line-height: 0.9;
-      letter-spacing: -0.01em;
-      color: #F0EDE8;
-      margin-bottom: 1rem;
-    }
-    .landing-hero__title span { color: #E8A020; }
-
-    .landing-hero__subtitle {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 1rem;
-      color: rgba(240,237,232,0.45);
-      max-width: 400px;
-      line-height: 1.7;
-    }
-
-    /* Cards grid */
-    .presentations-grid {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 1.5rem;
-      max-width: 1100px;
-      width: 100%;
-      margin: 0 auto;
-      padding: 0 2rem 4rem;
-    }
-
-    .presentation-card {
-      position: relative;
-      background: #151C25;
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 20px;
-      padding: 2rem;
-      cursor: pointer;
-      text-decoration: none;
-      color: inherit;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      transition: border-color 0.3s, transform 0.3s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s;
-      overflow: hidden;
-    }
-    .presentation-card:hover {
-      border-color: #E8A020;
-      transform: translateY(-6px);
-      box-shadow: 0 24px 60px rgba(0,0,0,0.5);
-    }
-    .presentation-card::before {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, #E8A020, transparent);
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-    .presentation-card:hover::before { opacity: 1; }
-
-    .card-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-    }
-
-    .card-brand {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 2.5rem;
-      line-height: 1;
-      color: #F0EDE8;
-      letter-spacing: 0.05em;
-    }
-
-    .card-status {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.6rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      padding: 3px 10px;
-      border-radius: 100px;
-      background: rgba(58,125,68,0.15);
-      border: 1px solid rgba(58,125,68,0.3);
-      color: rgba(58,125,68,0.9);
-    }
-
-    .card-tagline {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #E8A020;
-    }
-
-    .card-description {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.875rem;
-      color: rgba(240,237,232,0.5);
-      line-height: 1.6;
-    }
-
-    .card-meta {
-      display: flex;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-      margin-top: auto;
-      padding-top: 1rem;
-      border-top: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .card-chip {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.6rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 3px 8px;
-      border-radius: 100px;
-      border: 1px solid rgba(255,255,255,0.1);
-      color: rgba(240,237,232,0.35);
-    }
-
-    .card-arrow {
-      position: absolute;
-      bottom: 1.5rem; right: 1.5rem;
-      width: 36px; height: 36px;
-      border-radius: 50%;
-      background: rgba(232,160,32,0.1);
-      border: 1px solid rgba(232,160,32,0.2);
-      display: flex; align-items: center; justify-content: center;
-      color: #E8A020;
-      font-size: 1rem;
-      transition: background 0.3s, transform 0.3s;
-    }
-    .presentation-card:hover .card-arrow {
-      background: #E8A020;
-      color: #000;
-      transform: rotate(45deg);
-    }
-
-    /* Add card (placeholder) */
-    .presentation-card--add {
-      border-style: dashed;
-      border-color: rgba(255,255,255,0.1);
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      min-height: 200px;
-      cursor: default;
-    }
-    .presentation-card--add:hover {
-      border-color: rgba(255,255,255,0.15);
-      transform: none;
-      box-shadow: none;
-    }
-
-    footer {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      padding: 2rem;
-      border-top: 1px solid rgba(255,255,255,0.05);
-      font-family: 'DM Mono', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.1em;
-      color: rgba(240,237,232,0.2);
-    }
-
-    @media (max-width: 640px) {
-      .landing-nav { padding: 1rem 1.5rem; }
-      .presentations-grid { padding: 0 1rem 3rem; }
-    }
-  </style>
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <!-- Chart.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.2/chart.umd.min.js"></script>
 </head>
 <body>
 
-  <nav class="landing-nav">
-    <span class="landing-nav__logo">Pitch Deck Platform</span>
-    <span class="landing-nav__status">Activo · 1 presentación</span>
+  <!-- Noise overlay -->
+  <div class="noise" aria-hidden="true"></div>
+
+  <!-- Progress bar -->
+  <div id="progress-bar" role="progressbar" aria-label="Progreso de lectura"></div>
+
+  <!-- ── Navigation ─────────────────────────────────────── -->
+  <nav class="nav" aria-label="Navegación principal">
+    <a href="../../index.html" class="nav__logo">EASY <span>×</span> CENCOSUD</a>
+    <div class="nav__dots" aria-hidden="true">
+      <div class="nav__dot active" title="Hero"></div>
+      <div class="nav__dot" title="Tendencias"></div>
+      <div class="nav__dot" title="Los 8 Mundos"></div>
+      <div class="nav__dot" title="Planta"></div>
+      <div class="nav__dot" title="Números"></div>
+      <div class="nav__dot" title="Crecimiento"></div>
+      <div class="nav__dot" title="Cierre"></div>
+    </div>
   </nav>
 
-  <div class="landing-hero">
-    <div class="landing-hero__eyebrow">Plataforma de Presentaciones</div>
-    <h1 class="landing-hero__title">Pitch<br><span>Decks</span></h1>
-    <p class="landing-hero__subtitle">Selecciona una presentación para comenzar</p>
-  </div>
+  <!-- ══════════════════════════════════════════════════════
+       01 HERO
+       ══════════════════════════════════════════════════════ -->
+  <section class="section hero" id="s-hero" aria-label="Hero">
+    <div class="hero__bg-grid" aria-hidden="true"></div>
+    <div class="hero__glow" aria-hidden="true"></div>
 
-  <div class="presentations-grid">
-
-    <!-- EASY Card -->
-    <a href="brands/easy/index.html" class="presentation-card">
-      <div class="card-header">
-        <span class="card-brand">EASY</span>
-        <span class="card-status">Listo</span>
+    <div class="container" style="position:relative;z-index:2;">
+      <div class="hero__eyebrow">
+        <div class="hero__line" aria-hidden="true"></div>
+        <span class="label">Propuesta Estratégica · Cencosud · 2025</span>
       </div>
-      <div class="card-tagline">Nueva Propuesta de Layout Flagship · Cencosud</div>
-      <p class="card-description">
-        Arquitectura de retail en 8 mundos diferenciados: plaza central, 
-        experiencias inmersivas, Pro Hub y omnicanalidad integrada.
+
+      <h1 class="hero__title" aria-label="EASY El Futuro del Retail">
+        <span class="line">EASY</span>
+        <span class="line line--accent">FLAGSHIP</span>
+        <span class="line line--outline">STORE</span>
+      </h1>
+
+      <p class="hero__subtitle">
+        Una nueva arquitectura de retail que transforma la tienda en un destino: 
+        8 mundos diferenciados, experiencia inmersiva y máxima integración 
+        omnicanal para liderar el mejoramiento del hogar en Latinoamérica.
       </p>
-      <div class="card-meta">
-        <span class="card-chip">8 Zonas</span>
-        <span class="card-chip">Retail</span>
-        <span class="card-chip">Cencosud</span>
-        <span class="card-chip">2025</span>
-      </div>
-      <div class="card-arrow">→</div>
-    </a>
 
-    <!-- Placeholder add -->
-    <div class="presentation-card presentation-card--add">
-      <div style="font-size:2rem;color:rgba(255,255,255,0.1);">+</div>
-      <div style="font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.15);margin-top:0.5rem;">Nueva Presentación</div>
+      <div class="hero__meta">
+        <div class="hero__meta-item">
+          <span class="meta-label">Presentado a</span>
+          <span class="meta-value">Cencosud</span>
+        </div>
+        <div class="hero__meta-item">
+          <span class="meta-label">Formato</span>
+          <span class="meta-value">Tienda Flagship</span>
+        </div>
+        <div class="hero__meta-item">
+          <span class="meta-label">Año</span>
+          <span class="meta-value">2025</span>
+        </div>
+      </div>
     </div>
 
+    <div class="hero__scroll-hint" aria-hidden="true">
+      <span>Scroll</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       02 TENDENCIAS QUE DOMINAN HOY
+       ══════════════════════════════════════════════════════ -->
+  <section class="section trends-section" id="s-trends" aria-label="Tendencias del retail">
+    <div class="container">
+      <div class="trends-grid">
+
+        <div>
+          <div class="section-header" data-fade>
+            <div class="section-header__tag">
+              <span class="chip chip--accent">Contexto</span>
+              <span class="chip">Retail 2025</span>
+            </div>
+            <div class="accent-line"></div>
+            <h2 class="display-lg">Las tendencias<br>que dominan<br><em style="color:var(--accent);font-style:normal;">hoy</em></h2>
+            <p class="body-lg" style="margin-top:1.5rem;max-width:440px;">
+              El retail de mejoramiento del hogar atraviesa su mayor transformación en décadas. 
+              Las tiendas que no evolucionen quedarán obsoletas.
+            </p>
+          </div>
+
+          <div class="trends-row" style="margin-top:2.5rem;">
+            <div class="trend-pill" data-fade data-delay="0">
+              <span class="trend-pill__dot" style="background:var(--zone-1);"></span>
+              <div>
+                <div class="trend-pill__name">Omnicanalidad</div>
+                <div class="trend-pill__desc">Integración física-digital sin fricciones</div>
+              </div>
+            </div>
+            <div class="trend-pill" data-fade data-delay="0.1">
+              <span class="trend-pill__dot" style="background:var(--zone-2);"></span>
+              <div>
+                <div class="trend-pill__name">Layout Flexible</div>
+                <div class="trend-pill__desc">Espacios modulares y adaptables</div>
+              </div>
+            </div>
+            <div class="trend-pill" data-fade data-delay="0.2">
+              <span class="trend-pill__dot" style="background:var(--zone-3);"></span>
+              <div>
+                <div class="trend-pill__name">Experiencia Inmersiva</div>
+                <div class="trend-pill__desc">El cliente vive el producto</div>
+              </div>
+            </div>
+            <div class="trend-pill" data-fade data-delay="0.3">
+              <span class="trend-pill__dot" style="background:var(--zone-4);"></span>
+              <div>
+                <div class="trend-pill__name">Espacios Pro</div>
+                <div class="trend-pill__desc">Foco en profesionales y proyectos</div>
+              </div>
+            </div>
+            <div class="trend-pill" data-fade data-delay="0.4">
+              <span class="trend-pill__dot" style="background:var(--zone-5);"></span>
+              <div>
+                <div class="trend-pill__name">Sostenibilidad</div>
+                <div class="trend-pill__desc">Diseño responsable y circular</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contrast diagram -->
+        <div data-fade data-delay="0.2">
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-xl);padding:2rem;overflow:hidden;">
+            <div style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:1.5rem;">Tienda Hoy vs. Tienda Mañana</div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+              <!-- Today -->
+              <div style="padding:1.2rem;background:var(--bg-3);border-radius:12px;border:1px solid var(--border);">
+                <div style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:1rem;">ANTES</div>
+                <ul style="display:flex;flex-direction:column;gap:0.6rem;">
+                  <li style="font-size:0.82rem;color:var(--text-tertiary);display:flex;align-items:flex-start;gap:0.5rem;"><span style="color:rgba(212,82,58,0.8);font-size:0.9rem;flex-shrink:0;">—</span>Entrada funcional de productos</li>
+                  <li style="font-size:0.82rem;color:var(--text-tertiary);display:flex;align-items:flex-start;gap:0.5rem;"><span style="color:rgba(212,82,58,0.8);font-size:0.9rem;flex-shrink:0;">—</span>Pasillos de promoción</li>
+                  <li style="font-size:0.82rem;color:var(--text-tertiary);display:flex;align-items:flex-start;gap:0.5rem;"><span style="color:rgba(212,82,58,0.8);font-size:0.9rem;flex-shrink:0;">—</span>Layout rígido por categoría</li>
+                  <li style="font-size:0.82rem;color:var(--text-tertiary);display:flex;align-items:flex-start;gap:0.5rem;"><span style="color:rgba(212,82,58,0.8);font-size:0.9rem;flex-shrink:0;">—</span>Checkout único con fricción</li>
+                  <li style="font-size:0.82rem;color:var(--text-tertiary);display:flex;align-items:flex-start;gap:0.5rem;"><span style="color:rgba(212,82,58,0.8);font-size:0.9rem;flex-shrink:0;">—</span>Sin espacio para profesionales</li>
+                </ul>
+              </div>
+              <!-- Tomorrow -->
+              <div style="padding:1.2rem;background:rgba(232,160,32,0.04);border-radius:12px;border:1px solid rgba(232,160,32,0.2);">
+                <div style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;">PROPUESTA</div>
+                <ul style="display:flex;flex-direction:column;gap:0.6rem;">
+                  <li style="font-size:0.82rem;color:var(--text-secondary);display:flex;align-items:flex-start;gap:0.5rem;"><span style="color:var(--accent);font-size:0.9rem;flex-shrink:0;">+</span>Plaza central social</li>
+                  <li style="font-size:0.82rem;color:var(--text-secondary);display:flex;align-items:flex-start;gap:0.5rem;"><span style="color:var(--accent);font-size:0.9rem;flex-shrink:0;">+</span>Showrooms de vida real</li>
+                  <li style="font-size:0.82rem;color:var(--text-secondary);display:flex;align-items:flex-start;gap:0.5rem;"><span style="color:var(--accent);font-size:0.9rem;flex-shrink:0;">+</span>8 mundos diferenciados</li>
+                  <li style="font-size:0.82rem;color:var(--text-secondary);display:flex;align-items:flex-start;gap:0.5rem;"><span style="color:var(--accent);font-size:0.9rem;flex-shrink:0;">+</span>Checkout sin fricción</li>
+                  <li style="font-size:0.82rem;color:var(--text-secondary);display:flex;align-items:flex-start;gap:0.5rem;"><span style="color:var(--accent);font-size:0.9rem;flex-shrink:0;">+</span>Pro Hub dedicado 40-50%</li>
+                </ul>
+              </div>
+            </div>
+
+            <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border);">
+              <div style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:0.75rem;">Referentes globales</div>
+              <div style="display:flex;flex-wrap:wrap;gap:0.5rem;">
+                <span class="chip">Home Depot PRO</span>
+                <span class="chip">IKEA Experience</span>
+                <span class="chip">Leroy Merlin 2.0</span>
+                <span class="chip">B&Q Trade</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /trends-grid -->
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       03 LOS 8 MUNDOS
+       ══════════════════════════════════════════════════════ -->
+  <section class="section zones-section" id="s-zones" aria-label="Los 8 mundos de la tienda">
+    <div class="container">
+      <div class="section-header" style="position:relative;">
+        <div class="section-header__tag">
+          <span class="chip chip--accent">Arquitectura</span>
+        </div>
+        <div class="accent-line"></div>
+        <h2 class="display-lg">Los <span style="color:var(--accent);">8 Mundos</span><br>del Nuevo EASY</h2>
+        <p class="body-lg" style="margin-top:1rem;max-width:560px;">
+          Cada mundo es una zona con identidad propia, audiencia específica y experiencia diseñada. 
+          Haz click en cualquier tarjeta para ver el detalle.
+        </p>
+      </div>
+
+      <div class="zones-grid" id="zones-grid">
+        <!-- Populated by JS -->
+        <!-- Fallback for no-JS -->
+        <noscript>
+          <p style="color:var(--text-secondary);">Habilita JavaScript para ver el contenido interactivo.</p>
+        </noscript>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       04 PLANTA ESQUEMÁTICA
+       ══════════════════════════════════════════════════════ -->
+  <section class="section floorplan-section" id="s-floor" aria-label="Planta de la tienda">
+    <div class="container">
+      <div class="section-header" data-fade>
+        <div class="section-header__tag">
+          <span class="chip chip--accent">Planta</span>
+          <span class="chip">Recorrido del Cliente</span>
+        </div>
+        <div class="accent-line"></div>
+        <h2 class="display-lg">El Recorrido<br>en la <span style="color:var(--accent);">Tienda</span></h2>
+        <p class="body-lg" style="margin-top:1rem;max-width:560px;">
+          El layout genera un flujo natural que expone al cliente a todos los mundos, 
+          maximizando dwell time y oportunidades de compra cruzada.
+        </p>
+      </div>
+
+      <div class="floorplan-wrap" data-fade data-delay="0.2">
+        <!-- ── Floorplan SVG ──────────────────────────────── -->
+        <svg class="floorplan-svg" viewBox="0 0 1200 650" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Planta esquemática de la tienda EASY Flagship">
+          <defs>
+            <linearGradient id="floorBg" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#0D1117;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#131920;stop-opacity:1" />
+            </linearGradient>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+              <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+
+          <!-- Background -->
+          <rect width="1200" height="650" fill="url(#floorBg)" />
+
+          <!-- Outer walls -->
+          <rect x="30" y="30" width="1140" height="590" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="2" rx="4"/>
+
+          <!-- Entry arrow -->
+          <g class="fp-zone">
+            <path d="M80 620 L80 590 L50 590 L80 550 L110 590 L80 590" fill="rgba(232,160,32,0.5)" />
+            <text x="80" y="640" text-anchor="middle" font-family="DM Mono" font-size="9" fill="rgba(232,160,32,0.8)" letter-spacing="2">ENTRADA</text>
+          </g>
+
+          <!-- Zone 1: Plaza Central -->
+          <g class="fp-zone">
+            <rect x="40" y="40" width="240" height="200" fill="rgba(232,160,32,0.08)" stroke="rgba(232,160,32,0.4)" stroke-width="1.5" rx="4"/>
+            <circle cx="160" cy="100" r="30" fill="none" stroke="rgba(232,160,32,0.3)" stroke-width="1" stroke-dasharray="4,3"/>
+            <text x="160" y="105" text-anchor="middle" font-family="DM Mono" font-size="8" fill="rgba(232,160,32,0.6)">MEDIA WALL</text>
+            <text x="160" y="170" text-anchor="middle" font-family="Bebas Neue" font-size="14" fill="#E8A020" letter-spacing="2">01 PLAZA CENTRAL</text>
+            <text x="160" y="185" text-anchor="middle" font-family="DM Mono" font-size="8" fill="rgba(232,160,32,0.5)" letter-spacing="1">HUB SOCIAL</text>
+            <!-- Cafetería indicator -->
+            <rect x="55" y="155" width="45" height="25" fill="rgba(232,160,32,0.1)" stroke="rgba(232,160,32,0.2)" stroke-width="1" rx="3"/>
+            <text x="77" y="171" text-anchor="middle" font-family="DM Mono" font-size="7" fill="rgba(232,160,32,0.5)">CAFÉ</text>
+          </g>
+
+          <!-- Zone 2: Mundo Inspiración -->
+          <g class="fp-zone">
+            <rect x="290" y="40" width="260" height="200" fill="rgba(74,158,191,0.08)" stroke="rgba(74,158,191,0.4)" stroke-width="1.5" rx="4"/>
+            <!-- Sofa icon -->
+            <rect x="330" y="90" width="80" height="30" fill="rgba(74,158,191,0.15)" rx="4"/>
+            <rect x="325" y="85" width="15" height="40" fill="rgba(74,158,191,0.15)" rx="3"/>
+            <rect x="415" y="85" width="15" height="40" fill="rgba(74,158,191,0.15)" rx="3"/>
+            <text x="420" y="175" text-anchor="middle" font-family="Bebas Neue" font-size="14" fill="#4A9EBF" letter-spacing="2">02 INSPIRACIÓN</text>
+            <text x="420" y="190" text-anchor="middle" font-family="DM Mono" font-size="8" fill="rgba(74,158,191,0.5)" letter-spacing="1">LIFESTYLE & DESIGN</text>
+          </g>
+
+          <!-- Zone 3: Mundo Proyecto -->
+          <g class="fp-zone">
+            <rect x="560" y="40" width="200" height="200" fill="rgba(123,94,167,0.08)" stroke="rgba(123,94,167,0.4)" stroke-width="1.5" rx="4"/>
+            <!-- Blueprint lines -->
+            <line x1="580" y1="80" x2="740" y2="80" stroke="rgba(123,94,167,0.2)" stroke-width="1"/>
+            <line x1="580" y1="100" x2="700" y2="100" stroke="rgba(123,94,167,0.2)" stroke-width="1"/>
+            <line x1="580" y1="120" x2="720" y2="120" stroke="rgba(123,94,167,0.2)" stroke-width="1"/>
+            <text x="660" y="170" text-anchor="middle" font-family="Bebas Neue" font-size="14" fill="#7B5EA7" letter-spacing="2">03 PROYECTO</text>
+            <text x="660" y="185" text-anchor="middle" font-family="DM Mono" font-size="8" fill="rgba(123,94,167,0.5)" letter-spacing="1">PROJECT STUDIO</text>
+            <text x="660" y="205" text-anchor="middle" font-family="DM Mono" font-size="7.5" fill="rgba(123,94,167,0.4)">★ LA MÁS INNOVADORA</text>
+          </g>
+
+          <!-- Zone 4: Pro Hub (large - 40-50%) -->
+          <g class="fp-zone">
+            <rect x="770" y="40" width="400" height="300" fill="rgba(212,82,58,0.06)" stroke="rgba(212,82,58,0.4)" stroke-width="1.5" rx="4"/>
+            <!-- Warehouse grid pattern -->
+            <line x1="870" y1="40" x2="870" y2="340" stroke="rgba(212,82,58,0.1)" stroke-width="1"/>
+            <line x1="970" y1="40" x2="970" y2="340" stroke="rgba(212,82,58,0.1)" stroke-width="1"/>
+            <line x1="1070" y1="40" x2="1070" y2="340" stroke="rgba(212,82,58,0.1)" stroke-width="1"/>
+            <line x1="770" y1="140" x2="1170" y2="140" stroke="rgba(212,82,58,0.1)" stroke-width="1"/>
+            <line x1="770" y1="240" x2="1170" y2="240" stroke="rgba(212,82,58,0.1)" stroke-width="1"/>
+            <!-- Drive-in -->
+            <rect x="1080" y="260" width="80" height="72" fill="rgba(212,82,58,0.12)" stroke="rgba(212,82,58,0.3)" stroke-width="1" rx="2"/>
+            <text x="1120" y="298" text-anchor="middle" font-family="DM Mono" font-size="7" fill="rgba(212,82,58,0.6)">DRIVE</text>
+            <text x="1120" y="310" text-anchor="middle" font-family="DM Mono" font-size="7" fill="rgba(212,82,58,0.6)">IN</text>
+            <!-- Pro Desk -->
+            <rect x="780" y="260" width="70" height="35" fill="rgba(212,82,58,0.15)" rx="3"/>
+            <text x="815" y="281" text-anchor="middle" font-family="DM Mono" font-size="7.5" fill="rgba(212,82,58,0.7)">PRO DESK</text>
+            <text x="970" y="200" text-anchor="middle" font-family="Bebas Neue" font-size="16" fill="#D4523A" letter-spacing="2">04 PRO CONSTRUCTION HUB</text>
+            <text x="970" y="218" text-anchor="middle" font-family="DM Mono" font-size="8" fill="rgba(212,82,58,0.5)" letter-spacing="1">40—50% DE LA TIENDA · LAYOUT WAREHOUSE</text>
+          </g>
+
+          <!-- Zone 5: Herramientas -->
+          <g class="fp-zone">
+            <rect x="40" y="250" width="200" height="150" fill="rgba(58,125,68,0.08)" stroke="rgba(58,125,68,0.4)" stroke-width="1.5" rx="4"/>
+            <!-- Demo tables -->
+            <rect x="60" y="270" width="45" height="30" fill="rgba(58,125,68,0.15)" rx="3"/>
+            <rect x="115" y="270" width="45" height="30" fill="rgba(58,125,68,0.15)" rx="3"/>
+            <rect x="170" y="270" width="45" height="30" fill="rgba(58,125,68,0.15)" rx="3"/>
+            <text x="140" y="340" text-anchor="middle" font-family="Bebas Neue" font-size="13" fill="#3A7D44" letter-spacing="2">05 HERRAMIENTAS</text>
+            <text x="140" y="355" text-anchor="middle" font-family="DM Mono" font-size="8" fill="rgba(58,125,68,0.5)" letter-spacing="1">DEMO ZONE</text>
+            <text x="140" y="388" text-anchor="middle" font-family="DM Mono" font-size="7" fill="rgba(58,125,68,0.4)">MESAS · PRUEBAS · TALLERES</text>
+          </g>
+
+          <!-- Zone 6: Digital/Omnicanal -->
+          <g class="fp-zone">
+            <rect x="250" y="250" width="200" height="150" fill="rgba(27,127,168,0.08)" stroke="rgba(27,127,168,0.4)" stroke-width="1.5" rx="4"/>
+            <!-- Screens -->
+            <rect x="265" y="268" width="35" height="25" fill="rgba(27,127,168,0.2)" rx="2"/>
+            <rect x="308" y="268" width="35" height="25" fill="rgba(27,127,168,0.2)" rx="2"/>
+            <rect x="351" y="268" width="35" height="25" fill="rgba(27,127,168,0.2)" rx="2"/>
+            <rect x="394" y="268" width="35" height="25" fill="rgba(27,127,168,0.2)" rx="2"/>
+            <text x="350" y="340" text-anchor="middle" font-family="Bebas Neue" font-size="13" fill="#1B7FA8" letter-spacing="2">06 ZONA DIGITAL</text>
+            <text x="350" y="355" text-anchor="middle" font-family="DM Mono" font-size="8" fill="rgba(27,127,168,0.5)" letter-spacing="1">OMNICANALIDAD</text>
+            <text x="350" y="388" text-anchor="middle" font-family="DM Mono" font-size="7" fill="rgba(27,127,168,0.4)">AR · SCAN&GO · CLICK&COLLECT</text>
+          </g>
+
+          <!-- Zone 7: Comunidad -->
+          <g class="fp-zone">
+            <rect x="460" y="250" width="220" height="150" fill="rgba(192,120,64,0.08)" stroke="rgba(192,120,64,0.4)" stroke-width="1.5" rx="4"/>
+            <!-- Chairs pattern -->
+            <circle cx="510" cy="300" r="12" fill="rgba(192,120,64,0.15)"/>
+            <circle cx="550" cy="300" r="12" fill="rgba(192,120,64,0.15)"/>
+            <circle cx="590" cy="300" r="12" fill="rgba(192,120,64,0.15)"/>
+            <circle cx="630" cy="300" r="12" fill="rgba(192,120,64,0.15)"/>
+            <text x="570" y="345" text-anchor="middle" font-family="Bebas Neue" font-size="13" fill="#C07840" letter-spacing="2">07 COMUNIDAD</text>
+            <text x="570" y="360" text-anchor="middle" font-family="DM Mono" font-size="8" fill="rgba(192,120,64,0.5)" letter-spacing="1">FORMACIÓN</text>
+            <text x="570" y="388" text-anchor="middle" font-family="DM Mono" font-size="7" fill="rgba(192,120,64,0.4)">CURSOS · DIY · DEMOS</text>
+          </g>
+
+          <!-- Zone 8: Logística -->
+          <g class="fp-zone">
+            <rect x="40" y="410" width="840" height="150" fill="rgba(91,143,168,0.06)" stroke="rgba(91,143,168,0.35)" stroke-width="1.5" rx="4"/>
+            <!-- Checkout icons -->
+            <rect x="80" y="450" width="80" height="50" fill="rgba(91,143,168,0.12)" rx="4"/>
+            <text x="120" y="473" text-anchor="middle" font-family="DM Mono" font-size="7" fill="rgba(91,143,168,0.7)">SELF</text>
+            <text x="120" y="484" text-anchor="middle" font-family="DM Mono" font-size="7" fill="rgba(91,143,168,0.7)">CHECKOUT</text>
+            <rect x="200" y="450" width="80" height="50" fill="rgba(91,143,168,0.12)" rx="4"/>
+            <text x="240" y="473" text-anchor="middle" font-family="DM Mono" font-size="7" fill="rgba(91,143,168,0.7)">RETIRO</text>
+            <text x="240" y="484" text-anchor="middle" font-family="DM Mono" font-size="7" fill="rgba(91,143,168,0.7)">RÁPIDO</text>
+            <rect x="320" y="450" width="80" height="50" fill="rgba(91,143,168,0.12)" rx="4"/>
+            <text x="360" y="473" text-anchor="middle" font-family="DM Mono" font-size="7" fill="rgba(91,143,168,0.7)">DRIVE-IN</text>
+            <text x="360" y="484" text-anchor="middle" font-family="DM Mono" font-size="7" fill="rgba(91,143,168,0.7)">MATERIALES</text>
+            <text x="460" y="480" text-anchor="middle" font-family="Bebas Neue" font-size="15" fill="#5B8FA8" letter-spacing="2">08 LOGÍSTICA RÁPIDA — ZERO FRICCIÓN</text>
+            <text x="460" y="498" text-anchor="middle" font-family="DM Mono" font-size="8" fill="rgba(91,143,168,0.45)" letter-spacing="1">SELF CHECKOUT · RETIRO RÁPIDO · DRIVE-IN</text>
+          </g>
+
+          <!-- Flow arrows -->
+          <g opacity="0.35">
+            <path d="M160 240 L160 250" stroke="#E8A020" stroke-width="1.5" marker-end="url(#arr1)"/>
+            <path d="M280 140 L290 140" stroke="#4A9EBF" stroke-width="1.5"/>
+            <path d="M550 140 L560 140" stroke="#7B5EA7" stroke-width="1.5"/>
+            <path d="M420 240 L420 250" stroke="#1B7FA8" stroke-width="1.5"/>
+            <path d="M570 400 L570 410" stroke="#C07840" stroke-width="1.5"/>
+          </g>
+
+          <!-- Legend -->
+          <g transform="translate(890,380)">
+            <rect x="0" y="0" width="270" height="210" fill="rgba(10,10,14,0.8)" stroke="rgba(255,255,255,0.06)" stroke-width="1" rx="8"/>
+            <text x="14" y="22" font-family="DM Mono" font-size="8" fill="rgba(240,237,232,0.35)" letter-spacing="0.15em" text-transform="uppercase">LEYENDA</text>
+            <line x1="14" y1="28" x2="256" y2="28" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+            <!-- Items -->
+            <rect x="14" y="38" width="12" height="12" fill="rgba(232,160,32,0.5)" rx="2"/>
+            <text x="34" y="49" font-family="DM Sans" font-size="9" fill="rgba(240,237,232,0.55)">01 · Plaza Central</text>
+            <rect x="14" y="58" width="12" height="12" fill="rgba(74,158,191,0.5)" rx="2"/>
+            <text x="34" y="69" font-family="DM Sans" font-size="9" fill="rgba(240,237,232,0.55)">02 · Mundo Inspiración</text>
+            <rect x="14" y="78" width="12" height="12" fill="rgba(123,94,167,0.5)" rx="2"/>
+            <text x="34" y="89" font-family="DM Sans" font-size="9" fill="rgba(240,237,232,0.55)">03 · Mundo Proyecto</text>
+            <rect x="14" y="98" width="12" height="12" fill="rgba(212,82,58,0.5)" rx="2"/>
+            <text x="34" y="109" font-family="DM Sans" font-size="9" fill="rgba(240,237,232,0.55)">04 · Pro Construction Hub</text>
+            <rect x="14" y="118" width="12" height="12" fill="rgba(58,125,68,0.5)" rx="2"/>
+            <text x="34" y="129" font-family="DM Sans" font-size="9" fill="rgba(240,237,232,0.55)">05 · Herramientas & Tech</text>
+            <rect x="14" y="138" width="12" height="12" fill="rgba(27,127,168,0.5)" rx="2"/>
+            <text x="34" y="149" font-family="DM Sans" font-size="9" fill="rgba(240,237,232,0.55)">06 · Zona Digital</text>
+            <rect x="14" y="158" width="12" height="12" fill="rgba(192,120,64,0.5)" rx="2"/>
+            <text x="34" y="169" font-family="DM Sans" font-size="9" fill="rgba(240,237,232,0.55)">07 · Comunidad</text>
+            <rect x="14" y="178" width="12" height="12" fill="rgba(91,143,168,0.5)" rx="2"/>
+            <text x="34" y="189" font-family="DM Sans" font-size="9" fill="rgba(240,237,232,0.55)">08 · Logística Rápida</text>
+          </g>
+
+        </svg>
+        <!-- /floorplan SVG -->
+      </div>
+
+      <!-- Floor callouts -->
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem;">
+        <div class="zone-card" style="--card-color:var(--zone-4)" data-fade data-delay="0">
+          <div class="zone-card__name" style="font-size:1.1rem;">Pro Hub = 40–50%</div>
+          <div class="zone-card__subtitle">Del total de la tienda</div>
+          <p class="body-sm" style="margin-top:0.5rem;">El cliente profesional genera el mayor volumen de ticket. Este layout lo prioriza.</p>
+        </div>
+        <div class="zone-card" style="--card-color:var(--zone-1)" data-fade data-delay="0.1">
+          <div class="zone-card__name" style="font-size:1.1rem;">Plaza = Nuevo Acceso</div>
+          <div class="zone-card__subtitle">Hub social urbano</div>
+          <p class="body-sm" style="margin-top:0.5rem;">La entrada ya no es pasillo de productos. Es un espacio donde la gente quiere estar.</p>
+        </div>
+        <div class="zone-card" style="--card-color:var(--zone-8)" data-fade data-delay="0.2">
+          <div class="zone-card__name" style="font-size:1.1rem;">Logística al Final</div>
+          <div class="zone-card__subtitle">Zero fricción de salida</div>
+          <p class="body-sm" style="margin-top:0.5rem;">Tres opciones de retiro eliminan la fricción en checkout, la prioridad del retail moderno.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       05 KPIs / NÚMEROS
+       ══════════════════════════════════════════════════════ -->
+  <section class="section kpi-section" id="s-kpis" aria-label="Métricas proyectadas">
+    <div class="container">
+      <div class="section-header" data-fade>
+        <div class="section-header__tag">
+          <span class="chip chip--accent">Proyecciones</span>
+        </div>
+        <div class="accent-line"></div>
+        <h2 class="display-lg">Los Números<br>que <span style="color:var(--accent);">Importan</span></h2>
+        <p class="body-lg" style="margin-top:1rem;max-width:500px;">
+          Proyecciones basadas en benchmarks internacionales de tiendas flagship 
+          en el segmento DIY y mejoramiento del hogar.
+        </p>
+      </div>
+
+      <div class="kpi-grid" id="kpi-grid">
+        <!-- Populated by JS -->
+      </div>
+
+      <!-- Supporting text -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:3rem;" data-fade data-delay="0.3">
+        <div style="padding:1.5rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);">
+          <div class="label" style="margin-bottom:0.75rem;">Metodología</div>
+          <p class="body-sm">
+            Las proyecciones se basan en resultados documentados de Leroy Merlin España 
+            (formato Pro Hub), Home Depot Experience Centers (EE.UU.) y IKEA Planning Studios.
+            El incremento en ticket promedio refleja la venta de proyectos completos vs. 
+            productos individuales.
+          </p>
+        </div>
+        <div style="padding:1.5rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);">
+          <div class="label" style="margin-bottom:0.75rem;">El Caso EASY</div>
+          <p class="body-sm">
+            EASY ya tiene reconocimiento de marca en el segmento DIY. Esta propuesta 
+            potencia lo que ya funciona — el cliente conoce EASY — y agrega las capas 
+            de experiencia y servicio profesional que hoy no existen.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       06 GRÁFICO DE CRECIMIENTO
+       ══════════════════════════════════════════════════════ -->
+  <section class="section chart-section" id="s-chart" aria-label="Gráfico de crecimiento proyectado">
+    <div class="container">
+      <div class="section-header" data-fade>
+        <div class="section-header__tag">
+          <span class="chip chip--accent">Proyección</span>
+          <span class="chip">2020–2026</span>
+        </div>
+        <div class="accent-line"></div>
+        <h2 class="display-lg">La Brecha<br>de <span style="color:var(--accent);">Crecimiento</span></h2>
+        <p class="body-lg" style="margin-top:1rem;max-width:540px;">
+          El modelo flagship genera una curva de crecimiento exponencial vs. el modelo 
+          tradicional. La brecha se amplía cada año.
+        </p>
+      </div>
+
+      <div class="chart-wrap" data-fade data-delay="0.2">
+        <canvas id="growth-chart" aria-label="Gráfico comparativo de crecimiento flagship vs tradicional"></canvas>
+      </div>
+
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin-top:2rem;">
+        <div class="chip chip--accent">Índice base 100 = 2020</div>
+        <div class="chip">2025–2026: Proyectado</div>
+        <div class="chip">Fuente: benchmarks sectoriales</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       07 CIERRE / OUTRO
+       ══════════════════════════════════════════════════════ -->
+  <section class="section outro-section" id="s-outro" aria-label="Cierre de presentación">
+    <div class="outro__content">
+
+      <div style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:2rem;">
+        Cencosud · Propuesta Estratégica · 2025
+      </div>
+
+      <span class="outro__brand">E<span>A</span>SY</span>
+
+      <div class="outro__tagline">
+        El Futuro del Retail de Mejoramiento del Hogar en Latinoamérica
+      </div>
+
+      <a href="#s-hero" class="outro__cta" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">
+        Volver al inicio
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 14V2M2 8L8 2L14 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+
+      <div class="outro__logos" style="margin-top:4rem;display:flex;align-items:center;justify-content:center;gap:2rem;opacity:0.3;">
+        <span style="font-family:var(--font-display);font-size:1.5rem;letter-spacing:0.1em;">EASY</span>
+        <span style="width:1px;height:24px;background:var(--text-tertiary);"></span>
+        <span style="font-family:var(--font-body);font-size:0.9rem;font-weight:500;letter-spacing:0.08em;">CENCOSUD</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       Zone Detail Modal
+       ══════════════════════════════════════════════════════ -->
+  <div class="zone-detail" id="zone-detail" role="dialog" aria-modal="true" aria-label="Detalle de zona">
+    <div class="zone-detail__card">
+      <div class="zone-detail__inner">
+        <!-- Populated by JS -->
+      </div>
+    </div>
   </div>
 
-  <footer>
-    Pitch Deck Platform · Estático · Listo para Vercel
-  </footer>
+  <!-- ── Scripts ──────────────────────────────────────────── -->
+  <script src="js/main.js"></script>
 
 </body>
 </html>
