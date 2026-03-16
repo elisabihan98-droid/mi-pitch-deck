@@ -1,0 +1,14 @@
+{
+  "rewrites": [
+    { "source": "/brands/easy", "destination": "/brands/easy/index.html" },
+    { "source": "/brands/:brand", "destination": "/brands/:brand/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=3600" }
+      ]
+    }
+  ]
+}
